@@ -1,0 +1,38 @@
+.body {
+    width: 770px;
+    margin: 0 auto;
+}
+input{
+	width: 100%;
+	box-sizing: border-box;
+}
+.ui-panel .footer-buttons {
+	margin-top: 10px;
+	padding: 10px 0px 10px 0px;
+	border-top: 2px solid #E8EDF2;
+	text-align: right;
+}
+
+.ui-panel .footer-buttons button {
+	margin-right: 5px;
+}
+
+.ui-panelgrid .ui-panelgrid-cell{
+	padding: 4px 0 0 0;
+}
+.ui-tree .ui-treenode-icon{
+	vertical-align: top;
+	margin-top:7px;
+}
+.description{
+	white-space: pre-line; font-size: 13px;
+}
+.title{
+	font-weight: bold;
+}
+li.ui-treenode-leaf{
+	border-top: solid 1px #C6D6DF; 
+}
+li.ui-treenode{
+	border-left: solid 0px #C6D6DF; 
+}

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ps="http://primefaces.org/spark"
+	template="/template/template-base.xhtml">
+	<ui:define name="body">
+		<script type="text/javascript">
+		function start() {
+		    PF('statusDialog').show();
+		}
+		 
+		function stop() {
+		    PF('statusDialog').hide();
+		}
+		
+		</script>
+		<p:outputPanel id="treeContent">
+			<p:panel>
+				<h:form>
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12 ui-md-8">
+							<div class="ui-inputgroup">
+								<p:commandButton value="#{msg['index.consultar']}"
+									styleClass="GreenButton"
+									actionListener="#{explorer.consultaFullText()}"
+									update="@form,:formTree" />
+								<p:inputText label="#{msg['index.campo.consulta']}"
+									title="#{msg['index.consultar.placeholder']}"
+									placeholder="#{msg['index.consultar.placeholder']}"
+									value="#{explorer.queryFulltext}" required="true">
+									<f:validateLength minimum="3"/>
+								</p:inputText>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-md-4" style="margin-left: -10px;">
+							<div class="ui-inputgroup">
+								<p:commandButton title="Limpar"
+									actionListener="#{explorer.limparConsulta()}"
+									value="#{msg['index.limpar.consulta']}" styleClass="RedButton"
+									style="margin-left: 5px;" update="@form,:formTree" />
+							</div>
+						</div>
+					</div>
+				</h:form>
+				<h:form id="formTree">
+					<p:messages id="messages_result" showDetail="false">
+					</p:messages>
+					<p:tree value="#{explorer.root}" var="doc" animate="true" id="tree"
+						rendered="#{explorer.fullTextShow eq false}"
+						selectionMode="single" dynamic="true" style="width: inherit;">
+						<p:ajax event="expand" update=":formTree:tree"
+							listener="#{explorer.onNodeExpand}" />
+						<p:treeNode expandedIcon="ui-icon-folder-open"
+							collapsedIcon="ui-icon-folder-collapsed">
+							<h:outputText value="#{doc.name}" styleClass="title" />
+						</p:treeNode>
+						<p:treeNode type="FILE" icon="ui-icon-document">
+							<p:panelGrid columns="2" layout="grid" style="width:600px;"
+								columnClasses="ui-grid-col-12,ui-grid-col-1">
+								<p:panelGrid columns="1" layout="grid">
+									<h:outputText value="#{doc.name}" styleClass="title" />
+									<h:outputText
+										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
+									: doc.properties.cmDescription.length()) ).concat('...')}"
+										styleClass="description" />
+								</p:panelGrid>
+								<p:panelGrid columns="1" layout="grid">
+									<p:commandButton ajax="false" styleClass="GreenButton"
+										onclick="PrimeFaces.monitorDownload(start, stop);"
+										icon="fa fa-hdd-o white">
+										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
+									</p:commandButton>
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:treeNode>
+						<p:treeNode type="FILE_PDF" icon="fa fa-file-pdf-o">
+							<p:panelGrid columns="2" layout="grid" style="width:600px;"
+								columnClasses="ui-grid-col-11,ui-grid-col-1">
+								<p:panelGrid columns="1" layout="grid">
+									<h:outputText value="#{doc.name}" styleClass="title" />
+									<h:outputText
+										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
+									: doc.properties.cmDescription.length()) ).concat('...')}"
+										styleClass="description" />
+								</p:panelGrid>
+								<p:panelGrid columns="1" layout="grid">
+									<p:commandButton ajax="false" styleClass="GreenButton"
+										onclick="PrimeFaces.monitorDownload(start, stop);" title="Download"
+										icon="fa fa-hdd-o white">
+										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
+									</p:commandButton>
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:treeNode>
+					</p:tree>
+					<p:tree value="#{explorer.fullText}" var="doc" animate="true"
+						id="treeFullText" rendered="#{explorer.fullTextShow and explorer.fullText.childCount ne 0}"
+						selectionMode="single" dynamic="true" style="width: inherit;">
+						<p:treeNode type="FILE" icon="ui-icon-document">
+							<p:panelGrid columns="2" layout="grid" style="width:600px;"
+								columnClasses="ui-grid-col-12,ui-grid-col-1">
+								<p:panelGrid columns="1" layout="grid">
+									<h:outputText value="#{doc.name}" styleClass="title" />
+									<h:outputText
+										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
+									: doc.properties.cmDescription.length()) ).concat('...')}"
+										styleClass="description" />
+								</p:panelGrid>
+								<p:panelGrid columns="1" layout="grid">
+									<p:commandButton ajax="false" styleClass="GreenButton"
+										onclick="PrimeFaces.monitorDownload(start, stop);"
+										icon="fa fa-hdd-o white">
+										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
+									</p:commandButton>
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:treeNode>
+						<p:treeNode type="FILE_PDF" icon="fa fa-file-pdf-o">
+							<p:panelGrid columns="2" layout="grid" style="width:600px;"
+								columnClasses="ui-grid-col-11,ui-grid-col-1">
+								<p:panelGrid columns="1" layout="grid">
+									<h:outputText value="#{doc.name}" styleClass="title" />
+									<h:outputText
+										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
+									: doc.properties.cmDescription.length()) ).concat('...')}"
+										styleClass="description" />
+								</p:panelGrid>
+								<p:panelGrid columns="1" layout="grid">
+									<p:commandButton ajax="false" styleClass="GreenButton"
+										onclick="PrimeFaces.monitorDownload(start, stop);"
+										icon="fa fa-hdd-o white">
+										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
+									</p:commandButton>
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:treeNode>
+					</p:tree>
+				</h:form>
+			</p:panel>
+		</p:outputPanel>
+
+	</ui:define>
+
+
+</ui:composition>

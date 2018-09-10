@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view locale="pt_BR"
+	contentType="text/html; charset=UTF-8">
+	<h:head>
+		<title><ui:insert name="page-title">
+				<h:outputText value="#{msg['template-base_head.page.title']}" />
+			</ui:insert></title>
+		<meta name="description"
+			content="#{msg['template-base_head.page.description']}" />
+		<meta name="viewport" content="width=device-width" />
+
+		<ui:insert name="head" />
+	</h:head>
+
+	<h:body>
+		<f:facet name="last">
+			<h:outputStylesheet library="css" name="style.css" />
+		</f:facet>
+
+		<div class="header">
+			
+		</div>
+		<div class="body">
+			<div class="container">
+				<ui:insert name="body">
+					<h:outputText value="Page Body" />
+				</ui:insert>
+			</div>
+		</div>
+		<div class="footer"></div>
+	</h:body>
+</f:view>
+</html>
