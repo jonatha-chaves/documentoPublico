@@ -66,15 +66,25 @@ public class ExplorerCDI implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
+String raul;
+	private String loadTree34(TreeNode treeNode, String referencia) {
+		if(!treeNode.getData().equals("root")) {
+			referencia += loadTree34(treeNode.getParent(), "#" + ((Entry_) treeNode.getData()).getName());			
+		}	
+		raul += referencia;
+		return referencia;
+	}
+	
 	public void onNodeExpand(NodeExpandEvent event) {
 		if (((Entry_) event.getTreeNode().getData()).getId().equals(controleCDI.getPastaReferencia())
 				|| event.getTreeNode().getChildren().isEmpty()) {
 			return;
 		}
 		try {
+			raul="";
 			referencia34 += ((Entry_) event.getTreeNode().getData()).getName() + "#";
-			System.out.println(referencia34);
+			System.out.println(loadTree34(event.getTreeNode(), ""));
+			System.out.println(raul);
 			BaseRest baseRest;
 			if (controleCDI.getVersaoAlfresco().equals("5.2")) {
 				baseRest = controleCDI.filhos(((Entry_) event.getTreeNode().getData()).getId());
