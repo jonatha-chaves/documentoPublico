@@ -33,7 +33,7 @@
 									title="#{msg['index.consultar.placeholder']}"
 									placeholder="#{msg['index.consultar.placeholder']}"
 									value="#{explorer.queryFulltext}" required="true">
-									<f:validateLength minimum="3"/>
+									<f:validateLength minimum="3" />
 								</p:inputText>
 							</div>
 						</div>
@@ -71,10 +71,15 @@
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
+										rendered="#{controle.versaoAlfresco eq '5.2'}"
 										onclick="PrimeFaces.monitorDownload(start, stop);"
 										icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
+									<h:outputLink value="#{doc.urlFile34}"
+										rendered="#{controle.versaoAlfresco eq '3.4'}">
+										<i class="fa fa-hdd-o black GreenButton" />
+									</h:outputLink>
 								</p:panelGrid>
 							</p:panelGrid>
 						</p:treeNode>
@@ -90,16 +95,22 @@
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
-										onclick="PrimeFaces.monitorDownload(start, stop);" title="Download"
-										icon="fa fa-hdd-o white">
+										rendered="#{controle.versaoAlfresco eq '5.2'}"
+										onclick="PrimeFaces.monitorDownload(start, stop);"
+										title="Download" icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
+									<h:outputLink value="#{doc.urlFile34}"
+										rendered="#{controle.versaoAlfresco eq '3.4'}">
+										<i class="fa fa-hdd-o black GreenButton" />
+									</h:outputLink>
 								</p:panelGrid>
 							</p:panelGrid>
 						</p:treeNode>
 					</p:tree>
 					<p:tree value="#{explorer.fullText}" var="doc" animate="true"
-						id="treeFullText" rendered="#{explorer.fullTextShow and explorer.fullText.childCount ne 0}"
+						id="treeFullText"
+						rendered="#{explorer.fullTextShow and explorer.fullText.childCount ne 0}"
 						selectionMode="single" dynamic="true" style="width: inherit;">
 						<p:treeNode type="FILE" icon="ui-icon-document">
 							<p:panelGrid columns="2" layout="grid" style="width:600px;"
@@ -113,10 +124,15 @@
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
+										rendered="#{controle.versaoAlfresco eq '5.2'}"
 										onclick="PrimeFaces.monitorDownload(start, stop);"
 										icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
+									<h:outputLink value="#{doc.urlFile34}"
+										rendered="#{controle.versaoAlfresco eq '3.4'}">
+										<i class="fa fa-hdd-o black GreenButton" />
+									</h:outputLink>
 								</p:panelGrid>
 							</p:panelGrid>
 						</p:treeNode>
@@ -132,10 +148,15 @@
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
+										rendered="#{controle.versaoAlfresco eq '5.2'}"
 										onclick="PrimeFaces.monitorDownload(start, stop);"
 										icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
+									<h:outputLink value="#{doc.urlFile34}"
+										rendered="#{controle.versaoAlfresco eq '3.4'}">
+										<i class="fa fa-hdd-o black GreenButton" />
+									</h:outputLink>
 								</p:panelGrid>
 							</p:panelGrid>
 						</p:treeNode>

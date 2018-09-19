@@ -1,5 +1,5 @@
 
-package com.idip.json;
+package com.idip.alfresco52;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "displayName"
 })
-public class ModifiedByUser_ {
+public class CreatedByUser_ {
 
     @JsonProperty("id")
     private String id;

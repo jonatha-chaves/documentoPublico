@@ -36,3 +36,10 @@ li.ui-treenode-leaf{
 li.ui-treenode{
 	border-left: solid 0px #C6D6DF; 
 }
+a>i{
+    color: white;
+    background: #5fcf80;
+    padding: 6px 9px;
+    border-radius: 2px;
+    font-size: 16px;
+}    

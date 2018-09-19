@@ -1,5 +1,5 @@
 
-package com.idip.json;
+package com.idip.alfresco52;
 
 import java.util.HashMap;
 import java.util.List;

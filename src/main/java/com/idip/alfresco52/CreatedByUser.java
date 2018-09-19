@@ -1,5 +1,5 @@
 
-package com.idip.json;
+package com.idip.alfresco52;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,23 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "entry"
+    "id",
+    "displayName"
 })
-public class Entry {
+public class CreatedByUser {
 
-    @JsonProperty("entry")
-    private Entry_ entry;
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("displayName")
+    private String displayName;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("entry")
-    public Entry_ getEntry() {
-        return entry;
+    @JsonProperty("id")
+    public String getId() {
+        return id;
     }
 
-    @JsonProperty("entry")
-    public void setEntry(Entry_ entry) {
-        this.entry = entry;
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty("displayName")
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    @JsonProperty("displayName")
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @JsonAnyGetter

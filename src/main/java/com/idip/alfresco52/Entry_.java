@@ -1,5 +1,5 @@
 
-package com.idip.json;
+package com.idip.alfresco52;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +45,7 @@ public class Entry_ {
 	private String parentId;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	private String urlFile34;
 
 	@JsonProperty("createdAt")
 	public String getCreatedAt() {
@@ -184,5 +185,15 @@ public class Entry_ {
 	public void setAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
 	}
+
+	public String getUrlFile34() {
+		return urlFile34;
+	}
+
+	public void setUrlFile34(String urlFile34) {
+		this.urlFile34 = urlFile34;
+	}
+	
+	
 
 }

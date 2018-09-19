@@ -1,5 +1,5 @@
 
-package com.idip.json;
+package com.idip.alfresco52;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,36 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "cm:title",
-    "cm:description"
+    "id",
+    "displayName"
 })
-public class Properties {
+public class ModifiedByUser_ {
 
-    @JsonProperty("cm:title")
-    private String cmTitle;
-    @JsonProperty("cm:description")
-    private String cmDescription;
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("displayName")
+    private String displayName;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("cm:title")
-    public String getCmTitle() {
-        return cmTitle;
+    @JsonProperty("id")
+    public String getId() {
+        return id;
     }
 
-    @JsonProperty("cm:title")
-    public void setCmTitle(String cmTitle) {
-        this.cmTitle = cmTitle;
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
     }
 
-    @JsonProperty("cm:description")
-    public String getCmDescription() {
-        return cmDescription;
+    @JsonProperty("displayName")
+    public String getDisplayName() {
+        return displayName;
     }
 
-    @JsonProperty("cm:description")
-    public void setCmDescription(String cmDescription) {
-        this.cmDescription = cmDescription;
+    @JsonProperty("displayName")
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @JsonAnyGetter
