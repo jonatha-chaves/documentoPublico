@@ -1,5 +1,5 @@
 
-package com.idip.alfresco34;
+package br.com.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,26 +7,26 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findFilesAndFolder complex type.
+ * <p>Classe Java de findFilesAndFolder complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="findFilesAndFolder">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="folderSequenceTree" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="listExtesionBlock" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="file" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="folder" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="findFilesAndFolder"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="folderSequenceTree" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="listExtesionBlock" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="file" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="folder" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -52,7 +52,7 @@ public class FindFilesAndFolder {
     protected String password;
 
     /**
-     * Gets the value of the token property.
+     * Obtém o valor da propriedade token.
      * 
      * @return
      *     possible object is
@@ -64,7 +64,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the token property.
+     * Define o valor da propriedade token.
      * 
      * @param value
      *     allowed object is
@@ -76,7 +76,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Gets the value of the folderSequenceTree property.
+     * Obtém o valor da propriedade folderSequenceTree.
      * 
      * @return
      *     possible object is
@@ -88,7 +88,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the folderSequenceTree property.
+     * Define o valor da propriedade folderSequenceTree.
      * 
      * @param value
      *     allowed object is
@@ -100,7 +100,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Gets the value of the listExtesionBlock property.
+     * Obtém o valor da propriedade listExtesionBlock.
      * 
      * @return
      *     possible object is
@@ -112,7 +112,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the listExtesionBlock property.
+     * Define o valor da propriedade listExtesionBlock.
      * 
      * @param value
      *     allowed object is
@@ -124,7 +124,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Gets the value of the file property.
+     * Obtém o valor da propriedade file.
      * 
      */
     public boolean isFile() {
@@ -132,7 +132,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the file property.
+     * Define o valor da propriedade file.
      * 
      */
     public void setFile(boolean value) {
@@ -140,7 +140,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Gets the value of the folder property.
+     * Obtém o valor da propriedade folder.
      * 
      */
     public boolean isFolder() {
@@ -148,7 +148,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the folder property.
+     * Define o valor da propriedade folder.
      * 
      */
     public void setFolder(boolean value) {
@@ -156,7 +156,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Gets the value of the user property.
+     * Obtém o valor da propriedade user.
      * 
      * @return
      *     possible object is
@@ -168,7 +168,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the user property.
+     * Define o valor da propriedade user.
      * 
      * @param value
      *     allowed object is
@@ -180,7 +180,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Gets the value of the password property.
+     * Obtém o valor da propriedade password.
      * 
      * @return
      *     possible object is
@@ -192,7 +192,7 @@ public class FindFilesAndFolder {
     }
 
     /**
-     * Sets the value of the password property.
+     * Define o valor da propriedade password.
      * 
      * @param value
      *     allowed object is

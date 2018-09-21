@@ -1,5 +1,5 @@
 
-package com.idip.alfresco34;
+package br.com.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,20 +8,20 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for uploadFileWithAspectFromByteResponse complex type.
+ * <p>Classe Java de uploadFileWithAspectFromByteResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="uploadFileWithAspectFromByteResponse">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="uploadFileWithAspectFromByteResponse"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
@@ -36,7 +36,7 @@ public class UploadFileWithAspectFromByteResponse {
     protected String _return;
 
     /**
-     * Gets the value of the return property.
+     * Obtém o valor da propriedade return.
      * 
      * @return
      *     possible object is
@@ -48,7 +48,7 @@ public class UploadFileWithAspectFromByteResponse {
     }
 
     /**
-     * Sets the value of the return property.
+     * Define o valor da propriedade return.
      * 
      * @param value
      *     allowed object is

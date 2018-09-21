@@ -24,14 +24,16 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.idip.alfresco34.Exception_Exception;
-import com.idip.alfresco34.OnlinePublicAlfrescoService;
-import com.idip.alfresco34.Public;
 import com.idip.alfresco52.BaseRest;
+import com.idip.alfresco52.Content;
 import com.idip.alfresco52.Entry;
 import com.idip.alfresco52.Entry_;
 import com.idip.alfresco52.Properties;
-import com.idip.util.FileAndFolderResult;
+
+import br.com.ws.Exception_Exception;
+import br.com.ws.FileAndFolderResult;
+import br.com.ws.OnlinePublicAlfrescoService;
+import br.com.ws.Public;
 
 /**
  * @author jonatha.chaves
@@ -60,7 +62,9 @@ public class ControleCDI implements Serializable {
 	public void init() {
 		urlBaseAlfresco = "http://127.0.0.1:8085";
 		versaoAlfresco = "5.2";
+//		versaoAlfresco = "3.4";
 		pastaReferencia = "7bcac91c-4560-4e8a-b7f0-cab55c6faeb5";
+//		pastaReferencia = "Legislação Tributária";
 		baseRestUrl = "/alfresco/api/-default-/public/alfresco/versions/1/";
 		restUrlFullText = "queries/nodes?term={term}&rootNodeId={rootNodeId}";
 		restUrlDownload = "nodes/{nodeId}/content";
@@ -68,6 +72,9 @@ public class ControleCDI implements Serializable {
 		restUrlParent = "nodes/{nodeId}";
 		usuario = "admin";
 		senha = "1234";
+		
+//		usuario = "guest";
+//		senha = "guest";
 	}
 
 	private void adicionarMensagem(Severity sev, String title, String content) {
@@ -129,6 +136,7 @@ public class ControleCDI implements Serializable {
 			Entry_ entry_ = new Entry_();
 			entry_.setIsFolder(true);
 			entry_.setName(pastaReferencia);
+			entry_.setId(pastaReferencia);
 			entry = new Entry();
 			entry.setEntry(entry_);
 		}
@@ -160,8 +168,10 @@ public class ControleCDI implements Serializable {
 				properties.setCmDescription(result.get(i).getDescription());
 				properties.setCmTitle(result.get(i).getName());
 				entry_.setUrlFile34(result.get(i).getUrl());
-				Entry entry = new Entry();
+				entry_.setProperties(properties);
+				Entry entry = new Entry();				
 				entry.setEntry(entry_);
+				entries.add(entry);
 			}
 			list.setEntries(entries);
 			baseRest.setList(list);
@@ -178,7 +188,7 @@ public class ControleCDI implements Serializable {
 		} else {
 			Public publicAlfresco = new OnlinePublicAlfrescoService().getPublicPort();
 			List<FileAndFolderResult> result = publicAlfresco.findFilesAndFolder("#",
-					"company_home#" + pastaReferencia + nodeId, "p7s", true, true, usuario, senha);
+					"company_home#" + nodeId, "p7s", true, true, usuario, senha);
 			baseRest = new BaseRest();
 			com.idip.alfresco52.List list = new com.idip.alfresco52.List();
 			List<Entry> entries = new ArrayList<>();
@@ -194,8 +204,13 @@ public class ControleCDI implements Serializable {
 				properties.setCmDescription(result.get(i).getDescription());
 				properties.setCmTitle(result.get(i).getName());
 				entry_.setUrlFile34(result.get(i).getUrl());
+				Content content = new Content();
+				content.setMimeType(result.get(i).getType());
+				entry_.setContent(content);
+				entry_.setProperties(properties);
 				Entry entry = new Entry();
 				entry.setEntry(entry_);
+				entries.add(entry);
 			}
 			list.setEntries(entries);
 			baseRest.setList(list);

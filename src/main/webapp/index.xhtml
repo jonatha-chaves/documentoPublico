@@ -20,9 +20,10 @@
 		
 		</script>
 		<p:outputPanel id="treeContent">
-			<p:panel>
+			<p:scrollPanel mode="native" style="width:750px;height:790px">
 				<h:form>
-					<div class="ui-g ui-fluid">
+					<h:panelGroup class="ui-g ui-fluid"
+						rendered="#{controle.versaoAlfresco eq '5.2'}">
 						<div class="ui-g-12 ui-md-8">
 							<div class="ui-inputgroup">
 								<p:commandButton value="#{msg['index.consultar']}"
@@ -45,7 +46,7 @@
 									style="margin-left: 5px;" update="@form,:formTree" />
 							</div>
 						</div>
-					</div>
+					</h:panelGroup>
 				</h:form>
 				<h:form id="formTree">
 					<p:messages id="messages_result" showDetail="false">
@@ -57,7 +58,13 @@
 							listener="#{explorer.onNodeExpand}" />
 						<p:treeNode expandedIcon="ui-icon-folder-open"
 							collapsedIcon="ui-icon-folder-collapsed">
-							<h:outputText value="#{doc.name}" styleClass="title" />
+							<p:panelGrid columns="1" layout="grid" style="width:600px;">
+								<h:outputText value="#{doc.name}" styleClass="title" />
+								<h:outputText
+									value="#{doc.properties.cmDescription.length() gt 200? doc.properties.cmDescription.substring(0,200).concat('...') 
+									: doc.properties.cmDescription}"
+									styleClass="description" />
+							</p:panelGrid>
 						</p:treeNode>
 						<p:treeNode type="FILE" icon="ui-icon-document">
 							<p:panelGrid columns="2" layout="grid" style="width:600px;"
@@ -65,9 +72,9 @@
 								<p:panelGrid columns="1" layout="grid">
 									<h:outputText value="#{doc.name}" styleClass="title" />
 									<h:outputText
-										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
-									: doc.properties.cmDescription.length()) ).concat('...')}"
-										styleClass="description" />
+									value="#{doc.properties.cmDescription.length() gt 200? doc.properties.cmDescription.substring(0,200).concat('...') 
+									: doc.properties.cmDescription}"
+									styleClass="description" />
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
@@ -76,7 +83,7 @@
 										icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
-									<h:outputLink value="#{doc.urlFile34}"
+									<h:outputLink value="#{doc.urlFile34}" target="_blank"
 										rendered="#{controle.versaoAlfresco eq '3.4'}">
 										<i class="fa fa-hdd-o black GreenButton" />
 									</h:outputLink>
@@ -87,11 +94,13 @@
 							<p:panelGrid columns="2" layout="grid" style="width:600px;"
 								columnClasses="ui-grid-col-11,ui-grid-col-1">
 								<p:panelGrid columns="1" layout="grid">
-									<h:outputText value="#{doc.name}" styleClass="title" />
-									<h:outputText
-										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
-									: doc.properties.cmDescription.length()) ).concat('...')}"
-										styleClass="description" />
+									<p:panelGrid columns="1" layout="grid">
+										<h:outputText value="#{doc.name}" styleClass="title" />
+										<h:outputText
+									value="#{doc.properties.cmDescription.length() gt 200? doc.properties.cmDescription.substring(0,200).concat('...') 
+									: doc.properties.cmDescription}"
+									styleClass="description" />
+									</p:panelGrid>
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
@@ -100,7 +109,7 @@
 										title="Download" icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
-									<h:outputLink value="#{doc.urlFile34}"
+									<h:outputLink value="#{doc.urlFile34}" target="_blank"
 										rendered="#{controle.versaoAlfresco eq '3.4'}">
 										<i class="fa fa-hdd-o black GreenButton" />
 									</h:outputLink>
@@ -118,9 +127,9 @@
 								<p:panelGrid columns="1" layout="grid">
 									<h:outputText value="#{doc.name}" styleClass="title" />
 									<h:outputText
-										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
-									: doc.properties.cmDescription.length()) ).concat('...')}"
-										styleClass="description" />
+									value="#{doc.properties.cmDescription.length() gt 200? doc.properties.cmDescription.substring(0,200).concat('...') 
+									: doc.properties.cmDescription}"
+									styleClass="description" />
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
@@ -129,7 +138,7 @@
 										icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
-									<h:outputLink value="#{doc.urlFile34}"
+									<h:outputLink value="#{doc.urlFile34}" target="_blank"
 										rendered="#{controle.versaoAlfresco eq '3.4'}">
 										<i class="fa fa-hdd-o black GreenButton" />
 									</h:outputLink>
@@ -142,9 +151,9 @@
 								<p:panelGrid columns="1" layout="grid">
 									<h:outputText value="#{doc.name}" styleClass="title" />
 									<h:outputText
-										value="#{doc.properties.cmDescription.substring(0,(doc.properties.cmDescription.length() gt 200? 200 
-									: doc.properties.cmDescription.length()) ).concat('...')}"
-										styleClass="description" />
+									value="#{doc.properties.cmDescription.length() gt 200? doc.properties.cmDescription.substring(0,200).concat('...') 
+									: doc.properties.cmDescription}"
+									styleClass="description" />
 								</p:panelGrid>
 								<p:panelGrid columns="1" layout="grid">
 									<p:commandButton ajax="false" styleClass="GreenButton"
@@ -153,7 +162,7 @@
 										icon="fa fa-hdd-o white">
 										<p:fileDownload value="#{explorer.downloadFile(doc)}" />
 									</p:commandButton>
-									<h:outputLink value="#{doc.urlFile34}"
+									<h:outputLink value="#{doc.urlFile34}" target="_blank"
 										rendered="#{controle.versaoAlfresco eq '3.4'}">
 										<i class="fa fa-hdd-o black GreenButton" />
 									</h:outputLink>
@@ -162,7 +171,7 @@
 						</p:treeNode>
 					</p:tree>
 				</h:form>
-			</p:panel>
+			</p:scrollPanel>
 		</p:outputPanel>
 
 	</ui:define>

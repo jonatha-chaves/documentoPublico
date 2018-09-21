@@ -1,5 +1,5 @@
 
-package com.idip.alfresco34;
+package br.com.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,46 +7,46 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findFilesFullText complex type.
+ * <p>Classe Java de removeFileFromName complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="findFilesFullText">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="folderSequenceTree" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="textConstens" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="removeFileFromName"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="folderSequenceTree" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findFilesFullText", propOrder = {
+@XmlType(name = "removeFileFromName", propOrder = {
     "token",
     "folderSequenceTree",
-    "textConstens",
+    "name",
     "user",
     "password"
 })
-public class FindFilesFullText {
+public class RemoveFileFromName {
 
     protected String token;
     protected String folderSequenceTree;
-    protected String textConstens;
+    protected String name;
     protected String user;
     protected String password;
 
     /**
-     * Gets the value of the token property.
+     * Obtém o valor da propriedade token.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class FindFilesFullText {
     }
 
     /**
-     * Sets the value of the token property.
+     * Define o valor da propriedade token.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class FindFilesFullText {
     }
 
     /**
-     * Gets the value of the folderSequenceTree property.
+     * Obtém o valor da propriedade folderSequenceTree.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class FindFilesFullText {
     }
 
     /**
-     * Sets the value of the folderSequenceTree property.
+     * Define o valor da propriedade folderSequenceTree.
      * 
      * @param value
      *     allowed object is
@@ -94,31 +94,31 @@ public class FindFilesFullText {
     }
 
     /**
-     * Gets the value of the textConstens property.
+     * Obtém o valor da propriedade name.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getTextConstens() {
-        return textConstens;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Sets the value of the textConstens property.
+     * Define o valor da propriedade name.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setTextConstens(String value) {
-        this.textConstens = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
     /**
-     * Gets the value of the user property.
+     * Obtém o valor da propriedade user.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class FindFilesFullText {
     }
 
     /**
-     * Sets the value of the user property.
+     * Define o valor da propriedade user.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class FindFilesFullText {
     }
 
     /**
-     * Gets the value of the password property.
+     * Obtém o valor da propriedade password.
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class FindFilesFullText {
     }
 
     /**
-     * Sets the value of the password property.
+     * Define o valor da propriedade password.
      * 
      * @param value
      *     allowed object is

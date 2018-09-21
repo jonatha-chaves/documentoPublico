@@ -1,5 +1,8 @@
+body{
+	margin: 0 auto;
+}
 .body {
-    width: 770px;
+    width: 758px;
     margin: 0 auto;
 }
 input{
@@ -42,4 +45,7 @@ a>i{
     padding: 6px 9px;
     border-radius: 2px;
     font-size: 16px;
-}    
+} 
+#formTree\:tree\:0>span>span.ui-tree-toggler{
+
+}

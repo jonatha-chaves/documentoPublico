@@ -4,26 +4,27 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.TreeNode;
 
-import com.idip.alfresco34.Exception_Exception;
 import com.idip.alfresco52.BaseRest;
 import com.idip.alfresco52.Entry;
 import com.idip.alfresco52.Entry_;
 import com.idip.util.FileType;
 
+import br.com.ws.Exception_Exception;
+
 @Named("explorer")
-@SessionScoped
+@ViewScoped
 public class ExplorerCDI implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -66,25 +67,26 @@ public class ExplorerCDI implements Serializable {
 			e.printStackTrace();
 		}
 	}
-String raul;
+
 	private String loadTree34(TreeNode treeNode, String referencia) {
-		if(!treeNode.getData().equals("root")) {
-			referencia += loadTree34(treeNode.getParent(), "#" + ((Entry_) treeNode.getData()).getName());			
-		}	
-		raul += referencia;
+		if (!treeNode.getData().equals("root")) {
+			referencia += loadTree34(treeNode.getParent(), ((Entry_) treeNode.getData()).getName() + "#");
+		}
 		return referencia;
 	}
-	
+
 	public void onNodeExpand(NodeExpandEvent event) {
 		if (((Entry_) event.getTreeNode().getData()).getId().equals(controleCDI.getPastaReferencia())
 				|| event.getTreeNode().getChildren().isEmpty()) {
 			return;
 		}
 		try {
-			raul="";
-			referencia34 += ((Entry_) event.getTreeNode().getData()).getName() + "#";
-			System.out.println(loadTree34(event.getTreeNode(), ""));
-			System.out.println(raul);
+			String[] split = loadTree34(event.getTreeNode(), "").split("#");
+			referencia34 = "";
+			for (int i = split.length - 1; i >= 0; i--) {
+				referencia34 += split[i] + "#";
+			}
+			System.err.println(referencia34 = referencia34.substring(0, referencia34.length()-1));
 			BaseRest baseRest;
 			if (controleCDI.getVersaoAlfresco().equals("5.2")) {
 				baseRest = controleCDI.filhos(((Entry_) event.getTreeNode().getData()).getId());
@@ -96,7 +98,7 @@ String raul;
 			}
 			for (Entry entry : baseRest.getList().getEntries()) {
 				if (entry.getEntry().getIsFile()) {
-					if (entry.getEntry().getContent().getMimeType().equals("application/pdf")) {
+					if (entry.getEntry().getContent().getMimeType().toLowerCase().contains("pdf")) {
 						new DefaultTreeNode(FileType.FILE_PDF.toString(), entry.getEntry(), event.getTreeNode());
 					} else {
 						new DefaultTreeNode(FileType.FILE.toString(), entry.getEntry(), event.getTreeNode());
