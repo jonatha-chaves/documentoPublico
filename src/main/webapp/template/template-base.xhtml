@@ -18,7 +18,11 @@
 
 		<ui:insert name="head" />
 	</h:head>
-
+	<p:dialog modal="true" widgetVar="statusDialog"
+		draggable="false" closable="false" resizable="false">
+		<p:graphicImage name="images/ajaxloadingbar.gif" />
+	</p:dialog>
+	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 	<h:body>
 		<f:facet name="last">
 			<h:outputStylesheet library="css" name="style.css" />
@@ -34,6 +38,13 @@
 		</div>
 		<div class="footer"></div>
 		<script type="text/javascript">
+		function start() {
+		    PF('statusDialog').show();
+		}
+		 
+		function stop() {
+		    PF('statusDialog').hide();
+		}
 		 $(function() {
 		    $( ".ui-tree-toggler" ).click();
 		  });				

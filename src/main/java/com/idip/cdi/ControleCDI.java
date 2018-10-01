@@ -93,7 +93,7 @@ public class ControleCDI implements Serializable {
 		if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 		}
-		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream()),"UTF-8"));
 		String output;
 		String str = "";
 		while ((output = br.readLine()) != null) {
@@ -219,7 +219,7 @@ public class ControleCDI implements Serializable {
 	}
 
 	public BaseRest fullText(String query, String rootNodeId) throws IOException {
-		String resultado = resultadoRest(urlRestFullText(query, rootNodeId));
+		String resultado = resultadoRest(urlRestFullText(query.replace(" ", "%20"), rootNodeId));
 		ObjectMapper mapper = new ObjectMapper();
 		BaseRest baseRest = mapper.readValue(resultado, BaseRest.class);
 		return baseRest;
