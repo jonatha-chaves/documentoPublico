@@ -128,7 +128,8 @@ public class ExplorerCDI implements Serializable {
 	public void consultaFullText() {
 		try {
 			fullText = new DefaultTreeNode("root", null);
-			BaseRest baseRest = controleCDI.fullText(queryFulltext, controleCDI.getPastaReferencia());
+			//BaseRest baseRest = controleCDI.fullText(queryFulltext, controleCDI.getPastaReferencia());
+			BaseRest baseRest = controleCDI.fullText(queryFulltext);
 			for (Entry entry : baseRest.getList().getEntries()) {
 				if (entry.getEntry().getIsFile()) {
 					if (entry.getEntry().getContent().getMimeType().equals("application/pdf")) {

@@ -4,11 +4,14 @@
 package com.idip.cdi;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -23,6 +26,7 @@ import javax.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idip.alfresco52.BaseRest;
 import com.idip.alfresco52.Content;
@@ -52,6 +56,7 @@ public class ControleCDI implements Serializable {
 	private String pastaReferencia;
 	private String baseRestUrl;
 	private String restUrlFullText;
+	private String restUrlFullTextSearch;
 	private String restUrlDownload;
 	private String restUrlTree;
 	private String restUrlParent;
@@ -62,19 +67,20 @@ public class ControleCDI implements Serializable {
 	public void init() {
 		urlBaseAlfresco = "http://127.0.0.1:8085";
 		versaoAlfresco = "5.2";
-//		versaoAlfresco = "3.4";
+		// versaoAlfresco = "3.4";
 		pastaReferencia = "7bcac91c-4560-4e8a-b7f0-cab55c6faeb5";
-//		pastaReferencia = "Legislação Tributária";
+		// pastaReferencia = "Legislação Tributária";
 		baseRestUrl = "/alfresco/api/-default-/public/alfresco/versions/1/";
 		restUrlFullText = "queries/nodes?term={term}&rootNodeId={rootNodeId}";
+		restUrlFullTextSearch = "/alfresco/api/-default-/public/search/versions/1/search";
 		restUrlDownload = "nodes/{nodeId}/content";
 		restUrlTree = "nodes/{nodeId}/children?include=properties";
 		restUrlParent = "nodes/{nodeId}";
 		usuario = "admin";
 		senha = "1234";
-		
-//		usuario = "guest";
-//		senha = "guest";
+
+		// usuario = "guest";
+		// senha = "guest";
 	}
 
 	private void adicionarMensagem(Severity sev, String title, String content) {
@@ -93,7 +99,96 @@ public class ControleCDI implements Serializable {
 		if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 		}
-		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream()),"UTF-8"));
+		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream()), "UTF-8"));
+		String output;
+		String str = "";
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+			str += output;
+		}
+		conn.disconnect();
+		return str;
+	}
+
+	public static String stripAccents(String s) {
+		s = Normalizer.normalize(s, Normalizer.Form.NFD);
+		s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+		return s;
+	}
+
+	private String resultadoRestSearch(String query) throws IOException {
+		String[] split = query.trim().split(" ");
+		String queryFormat = "";
+		for (String s : split) {
+			queryFormat += "TEXT:" + stripAccents(s) + " AND ";
+		}
+		queryFormat = queryFormat.substring(0, queryFormat.lastIndexOf("AND")).trim();
+		String jsonString = "{\"query\": {\"language\": \"afts\",\"query\": \" ANCESTOR:" + pastaReferencia + " AND "
+				+ queryFormat + "\"}}";
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode actualObj;
+		actualObj = mapper.readTree(jsonString);
+		System.out.println(actualObj.toString());
+		URL url = new URL(urlBaseAlfresco + restUrlFullTextSearch);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		String userCredentials = usuario + ":" + senha;
+		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
+		conn.setRequestProperty("Authorization", basicAuth);
+		DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
+		System.out.println(actualObj.toString());
+		outputStream.writeBytes(actualObj.toString());
+		outputStream.flush();
+		outputStream.close();
+		if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+			throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+		}
+		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream()), "UTF-8"));
+		String output;
+		String str = "";
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+			str += output;
+		}
+		conn.disconnect();
+		return str;
+	}
+	
+	private String resultadoRestCmis(String query) throws IOException {
+		String[] split = query.trim().split(" ");
+		String queryFormat = "";
+		for (String s : split) {
+			queryFormat += stripAccents(s) + " AND ";
+		}
+		queryFormat = queryFormat.substring(0, queryFormat.lastIndexOf("AND")).trim();
+		String jsonString = "{\"query\": {\"language\": \"cmis\",\"query\": \"SELECT * FROM cmis:document WHERE cmis:name LIKE '"+URLEncoder.encode(query, "UTF-8")+"' OR (CONTAINS('"+queryFormat+"') "
+				+"AND IN_TREE('workspace://SpacesStore/"+pastaReferencia+"'))"
+				+ "\"}}";
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode actualObj;
+		actualObj = mapper.readTree(jsonString);
+		System.out.println(actualObj.toString());
+		URL url = new URL(urlBaseAlfresco + restUrlFullTextSearch);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		String userCredentials = usuario + ":" + senha;
+		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
+		conn.setRequestProperty("Authorization", basicAuth);
+		DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
+		System.out.println(actualObj.toString());
+		outputStream.writeBytes(actualObj.toString());
+		outputStream.flush();
+		outputStream.close();
+		if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+			throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+		}
+		BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream()), "UTF-8"));
 		String output;
 		String str = "";
 		while ((output = br.readLine()) != null) {
@@ -169,7 +264,7 @@ public class ControleCDI implements Serializable {
 				properties.setCmTitle(result.get(i).getName());
 				entry_.setUrlFile34(result.get(i).getUrl());
 				entry_.setProperties(properties);
-				Entry entry = new Entry();				
+				Entry entry = new Entry();
 				entry.setEntry(entry_);
 				entries.add(entry);
 			}
@@ -187,8 +282,8 @@ public class ControleCDI implements Serializable {
 			baseRest = mapper.readValue(resultado, BaseRest.class);
 		} else {
 			Public publicAlfresco = new OnlinePublicAlfrescoService().getPublicPort();
-			List<FileAndFolderResult> result = publicAlfresco.findFilesAndFolder("#",
-					"company_home#" + nodeId, "p7s", true, true, usuario, senha);
+			List<FileAndFolderResult> result = publicAlfresco.findFilesAndFolder("#", "company_home#" + nodeId, "p7s",
+					true, true, usuario, senha);
 			baseRest = new BaseRest();
 			com.idip.alfresco52.List list = new com.idip.alfresco52.List();
 			List<Entry> entries = new ArrayList<>();
@@ -219,7 +314,15 @@ public class ControleCDI implements Serializable {
 	}
 
 	public BaseRest fullText(String query, String rootNodeId) throws IOException {
-		String resultado = resultadoRest(urlRestFullText(query.replace(" ", "%20"), rootNodeId));
+		String resultado = resultadoRest(urlRestFullText(URLEncoder.encode(query, "UTF-8"), rootNodeId));
+		ObjectMapper mapper = new ObjectMapper();
+		BaseRest baseRest = mapper.readValue(resultado, BaseRest.class);
+		return baseRest;
+	}
+
+	public BaseRest fullText(String query) throws IOException {
+		//String resultado = resultadoRestSearch(query);
+		String resultado = resultadoRestCmis(query);
 		ObjectMapper mapper = new ObjectMapper();
 		BaseRest baseRest = mapper.readValue(resultado, BaseRest.class);
 		return baseRest;
